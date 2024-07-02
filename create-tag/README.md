@@ -29,18 +29,6 @@ Make sure to replace `1.0.0` with the desired tag name.
 
 This action doesn't have any outputs.
 
-## Example
-
-Here's an example of how you can use this action to create a new tag:
-
-```yaml
-- name: Create Tag
-  uses: jhonny17/create-tag@main
-  with:
-    tag-name: `1.0.0`
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-```
-
-This will create a new tag with the name `1.0.0` in your repository.
+---
 
 For more information, you can check out the [GitHub Actions documentation](https://docs.github.com/en/actions).

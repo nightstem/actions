@@ -20,8 +20,6 @@ Make sure to replace `1.0.0` with the desired version number.
 
 ## Inputs
 
-## Inputs
-
 | Input          | Required | Description                                                                                                                                      |
 | -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `version`      | Required | The version number for the pre-release.                                                                                                          |
@@ -33,18 +31,6 @@ Make sure to replace `1.0.0` with the desired version number.
 | ------------ | ---------------------------------- |
 | `release_id` | The ID of the created pre-release. |
 
-## Example
-
-Here's an example of how you can use this action to create a pre-release:
-
-```yaml
-- name: Create Pre-release
-  uses: jhonny17/create-pre-release@main
-  with:
-    version: '1.0.0'
-    github_token: ${{ secrets.GITHUB_TOKEN }}
-```
-
-This will create a new pre-release with the version number `1.0.0` in your repository.
+---
 
 For more information, you can check out the [GitHub Actions documentation](https://docs.github.com/en/actions).
