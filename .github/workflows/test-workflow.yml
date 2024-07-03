@@ -10,6 +10,8 @@ permissions:
 jobs:
   generate-next-version:
     runs-on: ubuntu-latest
+    outputs:
+      next_version: ${{ steps.generate-next-version.outputs.next_version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,36 +19,38 @@ jobs:
           fetch-depth: 0
 
       - name: Generate next version
+        id: generate-next-version
         uses: ./generate-next-version
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           max_patch_version: 10
           max_minor_version: 10
 
-  # create-tag-and-pre-release:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     release_id: ${{ steps.create-tag-and-pre-release-step.outputs.release_id }}
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
+  create-tag-and-pre-release:
+    runs-on: ubuntu-latest
+    needs: generate-next-version
+    outputs:
+      release_id: ${{ steps.create-tag-and-pre-release-step.outputs.release_id }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Create tag and pre-release
-  #       id: create-tag-and-pre-release-step
-  #       uses: ./create-tag-and-pre-release
-  #       with:
-  #         build_version: '1.0.0'
-  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create tag and pre-release
+        id: create-tag-and-pre-release-step
+        uses: ./create-tag-and-pre-release
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          build_version: ${{ needs.generate-next-version.outputs.next_version }}
 
-  # update-pre-release-to-release:
-  #   runs-on: ubuntu-latest
-  #   needs: create-tag-and-pre-release
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
+  update-pre-release-to-release:
+    runs-on: ubuntu-latest
+    needs: create-tag-and-pre-release
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Update pre-release to release
-  #       uses: ./update-pre-release-to-release
-  #       with:
-  #         github_token: ${{ secrets.GITHUB_TOKEN }}
-  #         release_id: ${{ needs.create-tag-and-pre-release.outputs.release_id }}
+      - name: Update pre-release to release
+        uses: ./update-pre-release-to-release
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_id: ${{ needs.create-tag-and-pre-release.outputs.release_id }}
