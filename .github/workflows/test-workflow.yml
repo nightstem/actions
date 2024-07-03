@@ -7,38 +7,24 @@ permissions:
   deployments: write
 
 jobs:
-  create-tag:
+  create-tag-and-pre-release:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Create tag
-        id: create-tag
-        uses: ./create-tag
-        with:
-          build_version: '1.0.0'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-  create-pre-release:
-    runs-on: ubuntu-latest
-    needs: create-tag
     outputs:
-      release_id: ${{ steps.create-pre-release-step.outputs.release_id }}
+      release_id: ${{ steps.create-tag-and-pre-release-step.outputs.release_id }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Create pre-release
-        id: create-pre-release-step
-        uses: ./create-pre-release
+      - name: Create tag and pre-release
+        id: create-tag-and-pre-release-step
+        uses: ./create-tag-and-pre-release
         with:
           build_version: '1.0.0'
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
   update-pre-release-to-release:
     runs-on: ubuntu-latest
-    needs: create-pre-release
+    needs: create-tag-and-pre-release
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -47,4 +33,4 @@ jobs:
         uses: ./update-pre-release-to-release
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_id: ${{ needs.create-pre-release.outputs.release_id }}
+          release_id: ${{ needs.create-tag-and-pre-release.outputs.release_id }}

@@ -29,7 +29,7 @@ runs:
       with:
         github-token: ${{ inputs.github_token }}
         script: |
-          const buildVersion = `${{ inputs.build_version }}`;
+          const buildVersion = '${{ inputs.build_version }}';
 
           const { data: tag } = await github.rest.git.createTag({
             owner: context.repo.owner,

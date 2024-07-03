@@ -1,5 +1,5 @@
-name: 'Create Pre-release'
-description: 'Creates a pre-release on GitHub with release notes'
+name: 'Create Tag and Pre-release'
+description: 'Creates a tag and a pre-release on GitHub with release notes'
 
 inputs:
   github_token:
@@ -9,6 +9,11 @@ inputs:
   build_version:
     description: 'Build version'
     required: true
+
+outputs:
+  release_id:
+    description: 'The ID of the created release'
+    value: ${{ steps.prepare_pre_release.outputs.release_id }}
 
 runs:
   using: 'composite'
@@ -96,6 +101,13 @@ runs:
 
           core.setOutput('release_notes', releaseNotes);
 
+    - name: Create tag
+      id: create-tag
+      uses: ./create-tag
+      with:
+        build_version: ${{ inputs.build_version }}
+        github_token: ${{ inputs.github_token }}
+
     - name: Prepare pre-release
       id: prepare_pre_release
       uses: actions/github-script@v7
@@ -103,7 +115,7 @@ runs:
         github-token: ${{ inputs.github_token }}
         script: |
           const version = `${{ inputs.build_version }}`;
-          const releaseNotes = `${{ steps.prepare_release_notes.outputs.release_notes }}`;
+          const releaseNotes = ${{ toJson(steps.prepare_release_notes.outputs.release_notes) }};
 
           const { data } = await github.rest.repos.createRelease({
             owner: context.repo.owner,
