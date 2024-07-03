@@ -1,8 +1,8 @@
-# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonny17/actions/update-pre-release-to-release
+# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonny17/actions/update-release
 
 ## Description
 
-This GitHub Action updates the state of a pre-release to be release. It can be useful for publishing pre-release versions of your software.
+This GitHub Action updates the state of a release. It can be useful for publishing release versions of your software.
 
 ## Usage
 
@@ -24,6 +24,8 @@ Make sure to replace `12345` with the correct release ID.
 | -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `release_id`   | Required | The ID for the pre-release.                                                                                                                      |
 | `github_token` | Required | The GitHub token used to authenticate the action.<br />You can use `${{ secrets.GITHUB_TOKEN }}` to access the default token provided by GitHub. |
+| `draft`        | Optional | Sets the release as draft.<br/>Default set to `false`.                                                                                           |
+| `prerelease`   | Options  | Sets the release as pre-release.<br/>Default set to `false`.                                                                                     |
 
 ## Outputs
 

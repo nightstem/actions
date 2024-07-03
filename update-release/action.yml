@@ -1,5 +1,5 @@
-name: 'Update Pre-Release to Release'
-description: 'Updates a pre-release to a release on GitHub'
+name: 'Update Release'
+description: 'Updates a release in a GitHub repository'
 
 inputs:
   github_token:
@@ -9,6 +9,16 @@ inputs:
   release_id:
     description: 'Release ID'
     required: true
+
+  draft:
+    description: 'Draft status'
+    required: false
+    default: false
+
+  prerelease:
+    description: 'Pre-release status'
+    required: false
+    default: false
 
 runs:
   using: 'composite'
@@ -34,6 +44,6 @@ runs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             release_id: releaseId,
-            draft: false,
-            prerelease: false,
+            draft: ${{ inputs.draft }},
+            prerelease: ${{ inputs.prerelease }},
           });

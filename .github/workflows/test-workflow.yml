@@ -50,7 +50,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Update pre-release to release
-        uses: ./update-pre-release-to-release
+        uses: ./update-release
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_id: ${{ needs.create-tag-and-pre-release.outputs.release_id }}
+          prerelease: false
+          draft: false
