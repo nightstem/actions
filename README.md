@@ -5,6 +5,8 @@ Welcome to the Github actions repository! Here you will find a collection of reu
 | Action Name                                                                        | Description                                     |
 | ---------------------------------------------------------------------------------- | ----------------------------------------------- |
 | [jhonny17/actions/create-tag](./create-tag/)                                       | Creates a new git tag                           |
+| [jhonny17/actions/get-last-tag](./get-last-tag/)                                   | Gets the latest tag in the repository           |
+| [jhonny17/actions/generate-next-version](./generate-next-version/)                 | It generates a new version for your project.    |
 | [jhonny17/actions/create-tag-and-pre-release](./create-tag-and-pre-release/)       | Creates a new tag and pre-release on GitHub     |
 | [jhonny17/actions/update-pre-release-to-release](./update-pre-release-to-release/) | Updates an existing pre-release to be a release |
 
