@@ -1,5 +1,5 @@
-name: 'Update Release'
-description: 'Updates a release in a GitHub repository'
+name: 'Delete Release'
+description: 'Deletes a release in a GitHub repository'
 
 inputs:
   github_token:
@@ -9,16 +9,6 @@ inputs:
   release_id:
     description: 'Release ID'
     required: true
-
-  draft:
-    description: 'Draft status'
-    required: false
-    default: false
-
-  prerelease:
-    description: 'Pre-release status'
-    required: false
-    default: false
 
 runs:
   using: 'composite'
@@ -35,10 +25,8 @@ runs:
         script: |
           const releaseId = `${{ inputs.release_id }}`;
 
-          await github.rest.repos.updateRelease({
+          await github.rest.repos.deleteRelease({
             owner: context.repo.owner,
             repo: context.repo.repo,
             release_id: releaseId,
-            draft: ${{ inputs.draft }},
-            prerelease: ${{ inputs.prerelease }},
           });

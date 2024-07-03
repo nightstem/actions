@@ -1,0 +1,27 @@
+name: 'Delete Tag'
+description: 'Deletes a tag in a GitHub repository'
+
+inputs:
+  github_token:
+    description: 'GitHub token'
+    required: true
+
+  build_version:
+    description: 'Build version'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Delete tag
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github_token }}
+        script: |
+          const buildVersion = '${{ inputs.build_version }}';
+
+          await github.rest.git.deleteRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: `tags/${buildVersion}`,
+          });

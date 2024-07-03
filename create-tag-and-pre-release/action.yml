@@ -23,11 +23,6 @@ runs:
       with:
         fetch-depth: 0
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-
     - name: Get last tag
       id: get_last_tag
       uses: ./get-last-tag
