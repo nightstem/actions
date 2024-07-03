@@ -1,6 +1,7 @@
 name: 'Workflow for testing an action'
 
-on: [push]
+# on: [push]
+on: [workflow_dispatch]
 
 permissions:
   contents: write
