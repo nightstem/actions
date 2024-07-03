@@ -35,12 +35,7 @@ runs:
             per_page: 1,
           });
 
-          if (tags.length > 0) {
-            const lastTag = tags[0].name;
-            core.setOutput('last_tag', lastTag);
-          } else {
-            core.setOutput('last_tag', '');
-          }
+          core.setOutput('last_tag', tags.length > 0 && tags[0] ? tags[0].commit.sha : '');
 
     - name: Get commit range since last tag
       id: get_commit_range
@@ -48,9 +43,9 @@ runs:
       with:
         github-token: ${{ inputs.github_token }}
         script: |
-          const lastTag = core.getInput('last_tag');
+          const lastTag = `${{ steps.get_last_tag.outputs.last_tag }}`;
 
-          const { data } = lastTag
+          const response = lastTag
             ? (
               await github.rest.repos.compareCommits({
                 owner: context.repo.owner,
@@ -67,7 +62,15 @@ runs:
               })
             );
 
-          const commits = data.map((commit) => ({
+          let rawCommits = response.data;
+
+          if (lastTag) {
+            rawCommits = response.data.commits.length > 0 
+              ? response.data.commits 
+              : [response.data.base_commit];
+          }
+
+          const commits = rawCommits.map((commit) => ({
             sha: commit.sha.slice(0, 7),
             author: `@${commit.author.login}`,
             message: commit.commit.message,
@@ -99,7 +102,7 @@ runs:
       with:
         github-token: ${{ inputs.github_token }}
         script: |
-          const version = core.getInput('build_version');
+          const version = `${{ inputs.build_version }}`;
           const releaseNotes = `${{ steps.prepare_release_notes.outputs.release_notes }}`;
 
           const { data } = await github.rest.repos.createRelease({

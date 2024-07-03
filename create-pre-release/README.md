@@ -1,4 +1,4 @@
-# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonny17/create-pre-release
+# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonny17/actions/create-pre-release
 
 ## Description
 
@@ -10,7 +10,7 @@ To use this action, you can include the following step in your workflow:
 
 ```yaml
 - name: Create Pre-release
-  uses: jhonny17/create-pre-release@main
+  uses: jhonny17/actions/create-pre-release@main
   with:
     version: '1.0.0'
     github_token: ${{ secrets.GITHUB_TOKEN }}
