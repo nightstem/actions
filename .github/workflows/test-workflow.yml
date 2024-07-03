@@ -2,6 +2,10 @@ name: 'Workflow for testing an action'
 
 on: [push]
 
+permissions:
+  contents: write
+  deployments: write
+
 jobs:
   create-tag:
     runs-on: ubuntu-latest
