@@ -1,0 +1,39 @@
+name: 'Update Pre-Release to Release'
+description: 'Updates a pre-release to a release on GitHub'
+
+inputs:
+  github_token:
+    description: 'GitHub token'
+    required: true
+
+  release_id:
+    description: 'Release ID'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: Update release
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github_token }}
+        script: |
+          const releaseId = `${{ inputs.release_id }}`;
+
+          await github.rest.repos.updateRelease({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            release_id: releaseId,
+            draft: false,
+            prerelease: false,
+          });
