@@ -1,4 +1,4 @@
-# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonny17/actions/get-last-tag
+# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonnyvargasarias/actions/get-last-tag
 
 ## Description
 
@@ -10,7 +10,7 @@ To use this action, you can include the following step in your workflow:
 
 ```yaml
 - name: Get Last Tag
-  uses: jhonny17/actions/get-last-tag@main
+  uses: jhonnyvargasarias/actions/get-last-tag@main
   with:
     github_token: ${{ secrets.GITHUB_TOKEN }}
 ```

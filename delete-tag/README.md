@@ -1,4 +1,4 @@
-# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonny17/actions/delete-tag
+# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonnyvargasarias/actions/delete-tag
 
 ## Description
 
@@ -10,7 +10,7 @@ To use this action, you can include the following step in your workflow:
 
 ```yaml
 - name: Delete Tag
-  uses: jhonny17/actions/delete-tag@main
+  uses: jhonnyvargasarias/actions/delete-tag@main
   with:
     build-version: '1.0.0'
     github_token: ${{ secrets.GITHUB_TOKEN }}

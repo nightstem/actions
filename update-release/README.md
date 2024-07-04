@@ -1,4 +1,4 @@
-# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonny17/actions/update-release
+# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonnyvargasarias/actions/update-release
 
 ## Description
 
@@ -10,7 +10,7 @@ To use this action, you can include the following step in your workflow:
 
 ```yaml
 - name: Update Pre-release to Release
-  uses: jhonny17/actions/update-release@main
+  uses: jhonnyvargasarias/actions/update-release@main
   with:
     release_id: 12345
     github_token: ${{ secrets.GITHUB_TOKEN }}

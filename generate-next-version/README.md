@@ -1,4 +1,4 @@
-# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonny17/actions/generate-next-version
+# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonnyvargasarias/actions/generate-next-version
 
 ## Description
 
@@ -10,7 +10,7 @@ To use this action, you can include the following step in your workflow:
 
 ```yaml
 - name: Generate next version
-  uses: jhonny17/actions/generate-next-version@main
+  uses: jhonnyvargasarias/actions/generate-next-version@main
   with:
     github_token: ${{ secrets.GITHUB_TOKEN }}
     max_patch_version: 10
