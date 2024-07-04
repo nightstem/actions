@@ -39,7 +39,7 @@ runs:
   steps:
     - name: Get last tag
       id: get_last_tag
-      uses: ./get-last-tag
+      uses: jhonnyvargasarias/actions/get-last-tag@main
       with:
         github_token: ${{ inputs.github_token }}
 
