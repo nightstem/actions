@@ -30,38 +30,35 @@ runs:
       with:
         github-token: ${{ inputs.github_token }}
         script: |
-          const lastTag = JSON.parse('${{ steps.get_last_tag.outputs.last_tag }}');
+          let lastTag = JSON.parse('${{ steps.get_last_tag.outputs.last_tag }}');
 
-          const response = lastTag
-            ? (
-              await github.rest.repos.compareCommits({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                base: lastTag.commit.sha,
-                head: context.sha,
-              })
-            )
-            : (
-              await github.rest.repos.listCommits({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                sha: context.sha,
-              })
-            );
+          if (!lastTag) {
+            const response = await github.rest.repos.listCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+            });
 
-          let rawCommits = response.data;
+            if (response.data.length === 0) {
+              core.setOutput('commits', '[]');
+              return;
+            }
 
-          if (lastTag) {
-            rawCommits = response.data.commits.length > 0 
-              ? response.data.commits 
-              : [response.data.base_commit];
+            const firstCommit = response.data[response.data.length - 1]
+            lastTag = { commit: firstCommit };
           }
-          console.log('lastTag', JSON.stringify(lastTag))
-          console.log('rawCommits', JSON.stringify(rawCommits))
-          const commits = rawCommits.map((commit) => ({
+
+          const response = await github.rest.repos.compareCommits({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            base: lastTag.commit.sha,
+            head: context.sha,
+          });
+
+          const commits = response.data.commits.map((commit) => ({
             sha: commit.sha.slice(0, 7),
-            author: `@${commit.author.login}`,
-            message: JSON.stringify(commit.commit.message),
+            author: `@${(commit.author?.login ?? commit.committer?.login)}`,
+            message: commit.commit.message,
           }))
 
           core.setOutput('commits', JSON.stringify(commits));
