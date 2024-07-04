@@ -56,11 +56,12 @@ runs:
               ? response.data.commits 
               : [response.data.base_commit];
           }
-
+          console.log('lastTag', JSON.stringify(lastTag))
+          console.log('rawCommits', JSON.stringify(rawCommits))
           const commits = rawCommits.map((commit) => ({
             sha: commit.sha.slice(0, 7),
             author: `@${commit.author.login}`,
-            message: commit.commit.message,
+            message: JSON.stringify(commit.commit.message),
           }))
 
           core.setOutput('commits', JSON.stringify(commits));
