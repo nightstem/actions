@@ -1,0 +1,57 @@
+name: Clear cache
+
+inputs:
+  github_token:
+    description: 'GitHub token'
+    type: string
+    required: true
+
+  ref:
+    description: 'Branch or tag ref'
+    type: string
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Get ref cache IDs
+      id: get_cache_ids
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github_token }}
+        script: |
+          const cacheInformation = {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: ${{ inputs.ref }},
+          }
+
+          if (!${{ inputs.ref }}) {
+            cacheInformation.ref = ${{ inputs.ref }};
+          }
+
+          const { data } = await github.rest.actions.getActionsCacheList(cacheInformation);
+          const refCacheIds = data.actions_caches.map(cache => cache.id);
+
+          core.setOutput('ref_cache_ids', JSON.stringify(refCacheIds));
+
+    - name: Clear ref caches
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github_token }}
+        script: |
+          const refCacheIds = JSON.parse('${{ steps.get_cache_ids.outputs.ref_cache_ids }}' || '[]');
+
+          for (const cacheId of refCacheIds) {
+            await github.rest.actions.deleteActionsCacheById({
+              owner: context.repo.owner,
+              repo: 'portfolio',
+              cache_id: cacheId,
+            });
+          }
+
+          if (refCacheIds.length > 0) {
+            core.notice(`Deleted ${refCacheIds.length} cache(s)`);
+          } else {
+            core.notice('No cache to delete');
+          }
