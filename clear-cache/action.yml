@@ -1,4 +1,4 @@
-name: Clear ref cache
+name: Clear cache
 
 inputs:
   github_token:
@@ -8,8 +8,8 @@ inputs:
 
   ref:
     description: 'Branch or tag ref'
-    default: ${{ github.ref }}
     type: string
+    required: false
 
 runs:
   using: 'composite'
@@ -20,12 +20,17 @@ runs:
       with:
         github-token: ${{ inputs.github_token }}
         script: |
-          const { data } = await github.rest.actions.getActionsCacheList({
+          const cacheInformation = {
             owner: context.repo.owner,
             repo: context.repo.repo,
             ref: ${{ inputs.ref }},
-          });
+          }
 
+          if (!${{ inputs.ref }}) {
+            cacheInformation.ref = ${{ inputs.ref }};
+          }
+
+          const { data } = await github.rest.actions.getActionsCacheList(cacheInformation);
           const refCacheIds = data.actions_caches.map(cache => cache.id);
 
           core.setOutput('ref_cache_ids', JSON.stringify(refCacheIds));
@@ -48,5 +53,5 @@ runs:
           if (refCacheIds.length > 0) {
             core.notice(`Deleted ${refCacheIds.length} cache(s)`);
           } else {
-            core.notice('No caches to delete');
+            core.notice('No cache to delete');
           }
