@@ -58,12 +58,18 @@ runs:
           }
 
           const commits = rawCommits.map((commit) => {
-            const author = commit.author?.login ?? commit.committer?.login;
-            const username = author ? `@${author}` : 'Author not found';
+            const username = commit.author?.login ?? commit.committer?.login;
+            const authorName = (
+              commit.author?.name ??
+              commit.committer?.name ??
+              commit.commit.author?.name ??
+              commit.commit.committer?.name ??
+              'Author not found'
+            );
 
             return {
               sha: commit.sha.slice(0, 7),
-              author: username,
+              author: username ? `@${username}` : authorName,
               message: commit.commit.message,
             };
           })

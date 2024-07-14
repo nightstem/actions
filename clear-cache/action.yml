@@ -23,11 +23,10 @@ runs:
           const cacheInformation = {
             owner: context.repo.owner,
             repo: context.repo.repo,
-            ref: ${{ inputs.ref }},
-          }
+          };
 
-          if (!${{ inputs.ref }}) {
-            cacheInformation.ref = ${{ inputs.ref }};
+          if ('${{ inputs.ref }}'.length > 0) {
+            cacheInformation.ref = '${{ inputs.ref }}';
           }
 
           const { data } = await github.rest.actions.getActionsCacheList(cacheInformation);
