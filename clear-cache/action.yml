@@ -45,11 +45,11 @@ runs:
             for (const cacheId of refCacheIds) {
               await github.rest.actions.deleteActionsCacheById({
                 owner: context.repo.owner,
-                repo: 'portfolio',
+                repo: context.repo.repo,
                 cache_id: cacheId,
               });
             }
-
+            
             core.notice(`Deleted ${refCacheIds.length} cache(s)`);
           } else {
             core.notice('No cache to delete');
