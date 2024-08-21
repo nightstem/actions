@@ -8,6 +8,6 @@
     "prettier:write": "prettier --write . --ignore-unknown"
   },
   "devDependencies": {
-    "prettier": "^3.3.2"
+    "prettier": "^3.3.3"
   }
 }
