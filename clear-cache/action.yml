@@ -41,15 +41,15 @@ runs:
         script: |
           const refCacheIds = JSON.parse('${{ steps.get_cache_ids.outputs.ref_cache_ids }}' || '[]');
 
-          for (const cacheId of refCacheIds) {
-            await github.rest.actions.deleteActionsCacheById({
-              owner: context.repo.owner,
-              repo: 'portfolio',
-              cache_id: cacheId,
-            });
-          }
-
           if (refCacheIds.length > 0) {
+            for (const cacheId of refCacheIds) {
+              await github.rest.actions.deleteActionsCacheById({
+                owner: context.repo.owner,
+                repo: 'portfolio',
+                cache_id: cacheId,
+              });
+            }
+
             core.notice(`Deleted ${refCacheIds.length} cache(s)`);
           } else {
             core.notice('No cache to delete');
