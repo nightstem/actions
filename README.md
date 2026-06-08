@@ -4,13 +4,13 @@ Welcome to the Github actions repository! Here you will find a collection of reu
 
 | Action Name                                                                           | Description                                 |
 | ------------------------------------------------------------------------------------- | ------------------------------------------- |
-| [jhonnyvargasarias/actions/create-tag](./create-tag/)                                 | Creates a new git tag                       |
-| [jhonnyvargasarias/actions/delete-tag](./delete-tag/)                                 | Deletes a tag                               |
-| [jhonnyvargasarias/actions/get-last-tag](./get-last-tag/)                             | Gets the latest tag in the repository       |
-| [jhonnyvargasarias/actions/generate-next-version](./generate-next-version/)           | Generates a new version for your project.   |
-| [jhonnyvargasarias/actions/create-tag-and-pre-release](./create-tag-and-pre-release/) | Creates a new tag and pre-release on GitHub |
-| [jhonnyvargasarias/actions/update-release](./update-release/)                         | Updates an existing release                 |
-| [jhonnyvargasarias/actions/delete-release](./delete-release/)                         | Deletes a release                           |
-| [jhonnyvargasarias/actions/clear-cache](./clear-cache/)                               | Clears all the values                       |
+| [actions/create-tag](./create-tag/)                                 | Creates a new git tag                       |
+| [actions/delete-tag](./delete-tag/)                                 | Deletes a tag                               |
+| [actions/get-last-tag](./get-last-tag/)                             | Gets the latest tag in the repository       |
+| [actions/generate-next-version](./generate-next-version/)           | Generates a new version for your project.   |
+| [actions/create-tag-and-pre-release](./create-tag-and-pre-release/) | Creates a new tag and pre-release on GitHub |
+| [actions/update-release](./update-release/)                         | Updates an existing release                 |
+| [actions/delete-release](./delete-release/)                         | Deletes a release                           |
+| [actions/clear-cache](./clear-cache/)                               | Clears all the values                       |
 
 Feel free to explore and utilize these actions to enhance your workflows. If you have any questions or need further assistance, please don't hesitate to reach out.

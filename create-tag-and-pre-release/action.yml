@@ -20,7 +20,7 @@ runs:
   steps:
     - name: Get last tag
       id: get_last_tag
-      uses: jhonnyvargasarias/actions/get-last-tag@main
+      uses: ./get-last-tag
       with:
         github_token: ${{ inputs.github_token }}
 
@@ -96,7 +96,7 @@ runs:
 
     - name: Create tag
       id: create-tag
-      uses: jhonnyvargasarias/actions/create-tag@main
+      uses: ./create-tag
       with:
         build_version: ${{ inputs.build_version }}
         github_token: ${{ inputs.github_token }}

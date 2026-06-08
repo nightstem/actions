@@ -1,4 +1,4 @@
-# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> jhonnyvargasarias/actions/clear-cache
+# <img src="../assets/images/github-actions-logo.png" alt="github actions logo" style="height: 32px"  /> actions/clear-cache
 
 ## Description
 
@@ -10,7 +10,7 @@ To use this action, you can include the following step in your workflow:
 
 ```yaml
 - name: Clear Cache
-  uses: jhonnyvargasarias/actions/clear-cache@main
+  uses: actions/clear-cache@main
   with:
     github_token: ${{ secrets.GITHUB_TOKEN }}
     ref: 'refs/heads/main' # Optional
