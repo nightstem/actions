@@ -79,11 +79,12 @@ runs:
     - name: Prepare release notes
       id: prepare_release_notes
       uses: actions/github-script@v9
+      env:
+        COMMITS_JSON: ${{ steps.get_commit_range.outputs.commits }}
       with:
         github-token: ${{ inputs.github_token }}
         script: |
-          const commitsJson = '${{ steps.get_commit_range.outputs.commits }}';
-          const commits = JSON.parse(commitsJson);
+          const commits = JSON.parse(process.env.COMMITS_JSON);
 
           let releaseNotes = '## Release Information\n';
           releaseNotes += '| Author       | Commit          | Message            |\n';
