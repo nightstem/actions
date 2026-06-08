@@ -24,7 +24,7 @@ runs:
   using: 'composite'
   steps:
     - name: Update release
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       with:
         github-token: ${{ inputs.github_token }}
         script: |

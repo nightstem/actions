@@ -14,7 +14,7 @@ jobs:
       next_version: ${{ steps.generate-next-version.outputs.next_version }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -33,7 +33,7 @@ jobs:
       release_id: ${{ steps.create-tag-and-pre-release-step.outputs.release_id }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Create tag and pre-release
         id: create-tag-and-pre-release-step
@@ -47,7 +47,7 @@ jobs:
     needs: create-tag-and-pre-release
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Update pre-release to release
         uses: ./update-release
@@ -67,7 +67,7 @@ jobs:
       ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Delete release
         uses: ./delete-release

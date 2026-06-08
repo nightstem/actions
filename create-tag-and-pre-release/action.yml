@@ -26,7 +26,7 @@ runs:
 
     - name: Get commit range since last tag
       id: get_commit_range
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       with:
         github-token: ${{ inputs.github_token }}
         script: |
@@ -78,7 +78,7 @@ runs:
 
     - name: Prepare release notes
       id: prepare_release_notes
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       with:
         github-token: ${{ inputs.github_token }}
         script: |
@@ -103,7 +103,7 @@ runs:
 
     - name: Prepare pre-release
       id: prepare_pre_release
-      uses: actions/github-script@v7
+      uses: actions/github-script@v9
       with:
         github-token: ${{ inputs.github_token }}
         script: |
